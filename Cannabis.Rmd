@@ -36,16 +36,13 @@ data <- read.csv("36100597.csv") |>
     ref_date >= 2000
   )
 
-# Aggregate
 df_plot <- data |>
   group_by(ref_date, age_group, frequency_of_use) |>
   summarise(value = sum(value, na.rm = TRUE), .groups = "drop")
 
-# 🔥 Filter for Daily only
 daily_data <- df_plot |>
   filter(frequency_of_use == "Daily")
 
-# Plot
 ggplot(daily_data, aes(x = ref_date, y = value, fill = age_group)) +
   geom_col() +
   labs(
