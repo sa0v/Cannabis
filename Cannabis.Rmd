@@ -19,7 +19,7 @@ The purpose of this notebook is to analyze the demographics of daily cannabis us
 
 # Analysis
 
-## How has the composition of age groups of daily cannabis users changed over time?
+## How has the distribution of age groups of daily cannabis users changed over time?
 
 ```{r}
 library(tidyverse)
@@ -46,7 +46,7 @@ daily_data <- data |>
 ggplot(daily_data, aes(x = ref_date, y = prop, fill = age_group)) +
   geom_area(alpha = 0.9) +
   labs(
-    title = "Daily Cannabis Use by Age Group Over Time",
+    title = "Distribution of Daily Cannabis Use by Age Group Over Time",
     subtitle = "Canada (2000+)",
     x = "Year",
     y = "Proportion of Users",
