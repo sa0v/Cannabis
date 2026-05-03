@@ -19,7 +19,7 @@ The purpose of this notebook is to analyze the demographics of daily cannabis us
 
 # Analysis
 
-## What is the distribution of daily cannabis use by age group?
+## How has the composition of age groups of daily cannabis users changed over time?
 
 ```{r}
 library(tidyverse)
