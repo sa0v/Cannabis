@@ -46,7 +46,7 @@ daily_data <- data |>
 ggplot(daily_data, aes(x = ref_date, y = prop, fill = age_group)) +
   geom_area(alpha = 0.9) +
   labs(
-    title = "Distribution of Daily Cannabis Use by Age Group Over Time",
+    title = "Daily Cannabis Use by Age Group Over Time",
     subtitle = "Canada (2000+)",
     x = "Year",
     y = "Proportion of Users",
