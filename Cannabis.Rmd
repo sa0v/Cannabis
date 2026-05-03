@@ -19,7 +19,7 @@ The purpose of this notebook is to analyze the demographics of daily cannabis us
 
 # Analysis
 
-## How has the amount of daily cannabis use in Canada changed over time?
+## What is the distribution of daily cannabis use by age group?
 
 ```{r}
 library(tidyverse)
@@ -43,26 +43,22 @@ df_plot <- data |>
 daily_data <- df_plot |>
   filter(frequency_of_use == "Daily")
 
-ggplot(daily_data, aes(x = ref_date, y = value, fill = age_group)) +
-  geom_col() +
+ggplot(daily_data, aes(x = age_group, y = value, fill = age_group)) +
+  geom_boxplot() +
   labs(
-    title = "Daily Cannabis Use Over Time",
-    subtitle = "Canada",
-    x = "Year",
+    title = "Distribution of Daily Cannabis Use by Age Group",
+    subtitle = "Canada (2000+)",
+    x = "Age Group",
     y = "Number of Individuals",
     fill = "Age Group"
   ) +
   scale_y_continuous(labels = comma) +
   scale_fill_viridis_d() +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme_minimal()
 ```
 
-The plot shows daily cannabis use in Canada over time (2000-2018), broken down by age group in a stacked bar chart. The overall trend shows a steady and substantial increase in total daily users across the entire period. The total rises from roughly 600,000 individuals in 2000 to over 1.1 million by the late 2010s. The 25-44 age group is the largest contributor throughout the observation period, showing strong, consistent growth and driving much of the overall increase. The 45-64 segment is the fastest growing proportionally, starting relatively small but increasing sharply, especially after 2010. The 18-24 age group remains relatively stable compared to other groups, with some slight growth that levels off early on. The smallest group across all years is the 15-17 age group, which also sees some slight growth early on, then remains
-relatively flat.
-
-Growth in daily cannabis users accelerates after around 2010, with all adult age groups increasing. The increase is driven mainly by older age groups (25-44 and 45-64) rather than youth. The composition of users shifts over time toward older populations. Daily cannabis use becomes more common and widespread over time, with a clear shift toward increased use among adults, particularly middle-aged individuals.
+The distribution of daily cannabis use in Canada since 2000 varies noticeably across age groups. Individuals aged 25–44 show the highest median number of users and the greatest variability, indicating both consistently high usage and significant year-to-year fluctuations. The 18–24 age group has a similarly high median but a much tighter distribution, suggesting more stable usage over time with fewer extreme changes. In contrast, the 45–64 group has a lower median and a wider spread, reflecting moderate usage with considerable variability across years. The 15–17 group consistently reports the lowest numbers and minimal variation, indicating stable and comparatively low usage. Overall, usage rises from adolescence to early middle age before declining in older groups, with variability generally increasing in the older age categories.
 
 # Conclusion
 
-Daily cannabis use in Canada shows a clear, upward trend from 2000 to 2018, nearly doubling overall. Growth is primarily driven by adults, especially in the 25-44 age group. The 45-64 group shows the fastest relative increase, indicating rising use among older individuals. Younger groups remain relatively stable, contributing less to overall growth. A noticeable acceleration occurs after 2010, with increases across all adult groups. The overall composition shifts toward an older user population over time. Overall, daily cannabis use became more widespread and increasingly concentrated among middle-aged and older adults, rather than youth.
+Daily cannabis use in Canada is most concentrated among adults in the 25–44 age group, who not only have the highest number of users but also experience the greatest fluctuations over time. Younger adults aged 18–24 also contribute substantially, though their usage remains more consistent. In contrast, both adolescents and older adults show lower overall participation, with teens displaying particularly stable and minimal use. These patterns suggest that cannabis use is most prominent and dynamic during early to middle adulthood, while remaining relatively limited and stable at the younger and older ends of the population.
