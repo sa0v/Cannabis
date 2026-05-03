@@ -44,8 +44,8 @@ daily_data <- data |>
 ggplot(daily_data, aes(x = age_group, y = value, fill = age_group)) +
   geom_boxplot() +
   labs(
-    title = "Variation in Daily Cannabis Use Across Age Groups (2000-2018)",
-    subtitle = "Canada",
+    title = "Variation in Daily Cannabis Use Across Age Groups",
+    subtitle = "Canada (2000-2018)",
     x = "Age Group",
     y = "Number of Users",
     fill = "Age Group"
