@@ -1,0 +1,48 @@
+---
+title: "Cannabis Use in Canada"
+author: "John W"
+format: html
+editor: visual
+---
+
+# Introduction
+
+The data set used by this notebook is available  [here.](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610059701)
+
+# Analysis
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(viridis)
+library(scales)
+
+options(scipen=999)
+
+data <- read.csv("36100597.csv") |>
+  clean_names() |>
+  filter(
+    age_group != "15 years and over",
+    frequency_of_use != "Total, all frequencies"
+  ) |>
+  select(ref_date,age_group,frequency_of_use,value) |>
+  filter(
+    frequency_of_use == "Daily"
+  ) |>
+  drop_na(value)
+
+data |>
+  filter(frequency_of_use == "Daily") |>
+  mutate(age_group = trimws(age_group)) |>
+  group_by(ref_date,age_group) |>
+  summarize(sum_value=sum(value)) |>
+  ggplot(aes(x = ref_date, y = sum_value)) +
+  geom_line(color = viridis(1)[1], linewidth = 1) +
+  facet_wrap(~ age_group, scales = "free_y") +
+  labs(
+    title = "Daily Cannabis Users by Age Group",
+    subtitle = "Canada (1961-2018)",
+    x = "Year",
+    y = "Value"
+  )
+```
