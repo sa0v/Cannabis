@@ -15,6 +15,7 @@ This notebook aims to provide insight into the amount of daily cannabis use in C
 
 ```{r}
 #| echo: false
+#| message: false
 library(tidyverse)
 library(janitor)
 library(viridis)
@@ -44,6 +45,7 @@ data |>
   summarize(sum_value = sum(value), .groups = "drop") |>
   ggplot(aes(x = ref_date, y = sum_value)) +
   geom_line(color = viridis(1)[1], linewidth = 1) +
+  # Facet wrap by age group and scale y-axis appropriately for each panel
   facet_wrap(~ age_group, scales = "free_y") +
   labs(
     title = "Daily Cannabis Users by Age Group",
