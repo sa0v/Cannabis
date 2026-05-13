@@ -14,6 +14,7 @@ This notebook aims to provide insight into the amount of daily cannabis use in C
 ## How has the amount of daily cannabis users in Canada changed over time?
 
 ```{r}
+#| echo: false
 library(tidyverse)
 library(janitor)
 library(viridis)
