@@ -7,9 +7,11 @@ editor: visual
 
 # Introduction
 
-The data set used by this notebook is available  [here.](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610059701)
+This notebook aims to provide insight into the amount of daily cannabis use in Canada, using a data set covering the period from 1961-2018. The data set is available for download from Statistics Canada  [here.](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610059701)
 
 # Analysis
+
+## How has the amount of daily cannabis users in Canada changed over time?
 
 ```{r}
 library(tidyverse)
@@ -17,8 +19,10 @@ library(janitor)
 library(viridis)
 library(scales)
 
+# No scientific notation
 options(scipen=999)
 
+# Load and tidy dataset
 data <- read.csv("36100597.csv") |>
   clean_names() |>
   filter(
@@ -31,18 +35,42 @@ data <- read.csv("36100597.csv") |>
   ) |>
   drop_na(value)
 
+# Plot daily cannabis users by age group over time
 data |>
   filter(frequency_of_use == "Daily") |>
   mutate(age_group = trimws(age_group)) |>
-  group_by(ref_date,age_group) |>
-  summarize(sum_value=sum(value)) |>
+  group_by(ref_date, age_group) |>
+  summarize(sum_value = sum(value), .groups = "drop") |>
   ggplot(aes(x = ref_date, y = sum_value)) +
   geom_line(color = viridis(1)[1], linewidth = 1) +
   facet_wrap(~ age_group, scales = "free_y") +
   labs(
     title = "Daily Cannabis Users by Age Group",
-    subtitle = "Canada (1961-2018)",
+    subtitle = "Canada (1961–2018)",
     x = "Year",
     y = "Value"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    strip.text = element_text(size = 11, face = "bold"),
+    panel.spacing = unit(1.5, "lines"),
+    # Increase margin space on right side
+    plot.margin = margin(15, 30, 15, 15)
   )
 ```
+
+This multi-panel line graph shows daily cannabis users in Canada from 1961-2018, separated by age group. The x-axis represents the year, the y-axis represents the number of daily cannabis users for a given age group.
+
+The 15-17 age group has the lowest number daily users. There is a sharp increase during the 1970s, with numbers peaking near 60,000, with a decline following in the late 1980s to early 1990s. Another small rise occurs in the late 1990s and early 2000s. There is a slight decrease toward 2018.
+
+The 18-24 age group has a higher amount of daily usage than teenagers, with a rapid increase from the 1960s to the late 1970s. A decline followed in the early 1990s, but usage rises again after 2000, ending at the highest point of the series (above 300,000).
+
+The 25-44 age group demonstrates a strong and steady upward trend overall, with gradual growth from the 1960s to the 1980s. This group had the largest number of users by 2018, reaching roughly 450,000.
+
+The 45-64 age group has very low and stable usage before 1990, with a period of rapid growth beginning in the late 1990s (the sharpest increase occurring after 2000). Numbers reach over 300,000 by 2018.
+
+The plot demonstrates that daily cannabis use generally increased over time across all age groups, with older age groups (25-44 and 45-64) showing the most sustained, long-term growth. Younger groups show more fluctuations over time.
+
+# Conclusion
+
+Daily cannabis use increased substantially across all age groups between 1961 and 2018. Adults aged 25-44 eperienced the highest overall number of daily users by the end of the period. The 45-64 age group showed the fastest late-period growth, especially after 2000. Younger age groups (15-17, 18-24) displayed more fluctuations and periods of decline. The overall trend suggests that cannabis use became increasingly common among older adults over time.
